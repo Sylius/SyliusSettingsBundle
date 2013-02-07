@@ -65,6 +65,9 @@
         <service id="sylius_settings.twig" class="%sylius_settings.twig.class%">
             <argument type="service" id="sylius_settings.manager" />
             <tag name="twig.extension" />
+            <call method="setContainer">
+              <argument type="service" id="service_container" />
+            </call>
         </service>
 
         <service id="form.type.money" class="%sylius_settings.form.type.money%">
