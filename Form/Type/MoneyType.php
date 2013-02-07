@@ -16,6 +16,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MoneyType extends BaseMoneyType
 {
+    private $container = null;
+    
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
 	/**
 	* {@inheritdoc}
 	*/
@@ -25,7 +32,7 @@ class MoneyType extends BaseMoneyType
             'precision' => 2,
             'grouping'  => false,
             'divisor'   => 1,
-            'currency'  => 'USD',
+            'currency'  => $this->container->getParameter('currency'),
             'compound'  => false,
         ));
     }

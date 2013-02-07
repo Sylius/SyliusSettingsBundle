@@ -72,6 +72,9 @@
 
         <service id="form.type.money" class="%sylius_settings.form.type.money%">
             <tag name="form.type" alias="money" />
+            <call method="setContainer">
+              <argument type="service" id="service_container" />
+            </call>            
         </service>        
     </services>
 
