@@ -22,6 +22,7 @@
         <parameter key="sylius_settings.manager.class">Sylius\Bundle\SettingsBundle\Manager\SettingsManager</parameter>
         <parameter key="sylius_settings.registry.class">Sylius\Bundle\SettingsBundle\Schema\SchemaRegistry</parameter>
         <parameter key="sylius_settings.twig.class">Sylius\Bundle\SettingsBundle\Twig\SyliusSettingsExtension</parameter>
+        <parameter key="sylius_settings.form.type.money">Sylius\Bundle\SettingsBundle\Form\Type\MoneyType</parameter>
     </parameters>
 
     <services>
@@ -64,7 +65,17 @@
         <service id="sylius_settings.twig" class="%sylius_settings.twig.class%">
             <argument type="service" id="sylius_settings.manager" />
             <tag name="twig.extension" />
+            <call method="setContainer">
+              <argument type="service" id="service_container" />
+            </call>
         </service>
+
+        <service id="form.type.money" class="%sylius_settings.form.type.money%">
+            <tag name="form.type" alias="money" />
+            <call method="setContainer">
+              <argument type="service" id="service_container" />
+            </call>            
+        </service>        
     </services>
 
 </container>
