@@ -54,6 +54,15 @@ class Configuration implements ConfigurationInterface
     {
         $node
             ->children()
+                ->arrayNode('validation_groups')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('parameter')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                    ->end()
+                ->end()
                 ->arrayNode('classes')
                     ->addDefaultsIfNotSet()
                     ->children()

@@ -32,6 +32,7 @@
         </service>
 
         <service id="sylius.settings.form_factory" class="%sylius.settings.form_factory.class%">
+            <argument>%sylius.validation_group.parameter%</argument>
             <argument type="service" id="sylius.settings.schema_registry" />
             <argument type="service" id="form.factory" />
         </service>

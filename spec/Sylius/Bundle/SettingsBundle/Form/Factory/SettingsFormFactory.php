@@ -26,7 +26,7 @@ class SettingsFormFactory extends ObjectBehavior
      */
     function let($schemaRegistry, $formFactory)
     {
-        $this->beConstructedWith($schemaRegistry, $formFactory);
+        $this->beConstructedWith(array('sylius'), $schemaRegistry, $formFactory);
     }
 
     function it_should_be_initializable()
@@ -47,7 +47,7 @@ class SettingsFormFactory extends ObjectBehavior
     function it_should_create_a_form_for_given_schema_namespace($schemaRegistry, $schema, $formFactory, $formBuilder, $form)
     {
         $schemaRegistry->getSchema('general')->willReturn($schema);
-        $formFactory->createBuilder('form', null, array('data_class' => null))->willReturn($formBuilder);
+        $formFactory->createBuilder('form', null, array('data_class' => null, 'validation_groups' => array('sylius')))->willReturn($formBuilder);
         $schema->buildForm($formBuilder)->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->willReturn($form);
 
