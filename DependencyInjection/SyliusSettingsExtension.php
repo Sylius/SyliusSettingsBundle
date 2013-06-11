@@ -55,6 +55,8 @@ class SyliusSettingsExtension extends Extension
             $container->setParameter('sylius.repository.parameter.class', $parameterClasses['repository']);
         }
 
+        $container->setParameter('sylius.validation_group.parameter', $config['validation_groups']['parameter']);
+
         $loader->load('services.xml');
     }
 }

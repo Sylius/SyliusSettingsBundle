@@ -22,6 +22,13 @@ use Symfony\Component\Form\FormFactoryInterface;
 class SettingsFormFactory implements SettingsFormFactoryInterface
 {
     /**
+     * Validation groups.
+     *
+     * @var array
+     */
+    protected $validationGroups;
+
+    /**
      * Schema registry.
      *
      * @var SchemaRegistryInterface
@@ -38,11 +45,13 @@ class SettingsFormFactory implements SettingsFormFactoryInterface
     /**
      * Constructor.
      *
+     * @param array                   $validationGroups
      * @param SchemaRegistryInterface $schemaRegistry
      * @param FormFactoryInterface    $formFactory
      */
-    public function __construct(SchemaregistryInterface $schemaRegistry, FormFactoryInterface $formFactory)
+    public function __construct(array $validationGroups, SchemaregistryInterface $schemaRegistry, FormFactoryInterface $formFactory)
     {
+        $this->validationGroups = $validationGroups;
         $this->schemaRegistry = $schemaRegistry;
         $this->formFactory = $formFactory;
     }
@@ -53,7 +62,14 @@ class SettingsFormFactory implements SettingsFormFactoryInterface
     public function create($namespace)
     {
         $schema = $this->schemaRegistry->getSchema($namespace);
-        $builder = $this->formFactory->createBuilder('form', null, array('data_class' => null));
+        $builder = $this->formFactory->createBuilder(
+            'form',
+            null,
+            array(
+                'data_class'        => null,
+                'validation_groups' => $this->validationGroups,
+            )
+        );
 
         $schema->buildForm($builder);
 
